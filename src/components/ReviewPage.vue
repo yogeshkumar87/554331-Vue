@@ -24,7 +24,22 @@
         </div>
         <div class="description">{{ description }}</div>
       </div>
-      <button class="add-review-button">{{ buttonText }}</button>
+      <button class="add-review-button" v-on:click="seen = true">
+        {{ buttonText }}
+      </button>
+      <div class="add-review-form" v-if="seen">
+        <div>
+          <StarRating v-model="rating" star-size="25" />
+        </div>
+        <div class="action-button">
+          <button class="add-review-button" v-on:click="seen = false">
+            {{ buttonSubmit }}
+          </button>
+          <button class="add-review-button" v-on:click="seen = false">
+            {{ buttonClose }}
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -43,7 +58,10 @@ export default {
       ratingHeading: "rating-1",
       description: "Rating",
       buttonText: "Write a review",
-      rating: 3
+      rating: 3,
+      seen: false,
+      buttonClose: "Close",
+      buttonSubmit: "Submit"
     };
   }
 };
@@ -116,5 +134,9 @@ export default {
 .add-review-button:focus {
   background-color: transparent;
   outline: none;
+}
+.action-button {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
